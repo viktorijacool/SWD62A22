@@ -15,7 +15,10 @@ namespace Domain.Models
     public class Item
     {
         [Key]       //an attribute applied to an Id - these attributes are for database generation
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+
 
         [StringLength(100)]     //a constraint
         [Required]

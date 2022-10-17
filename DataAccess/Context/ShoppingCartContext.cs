@@ -23,5 +23,6 @@ namespace DataAccess.Context
         public DbSet<Item> Items { get; set; }      //an abstraction of the tables therefore plural name
         public DbSet<Category> Categories { get; set; } 
 
+
     }
 }
