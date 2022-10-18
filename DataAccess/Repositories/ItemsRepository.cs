@@ -9,7 +9,7 @@ namespace DataAccess.Repositories
 {
     //Dependency Injection: it centralises the creation of instances to manage efficiently these inside memory
     
-    class ItemsRepository
+    public class ItemsRepository
     {
         private ShoppingCartContext context { get; set; }
 
