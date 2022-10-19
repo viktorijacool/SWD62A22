@@ -19,10 +19,11 @@ namespace WebApplication1.Controllers
         {
             itemsServices = _itemsServices;
         }
-        
-        
-        
+
+
+
         //a method to open the page, then the user starts typing
+        [HttpPost]
         public IActionResult Create()
         {
             return View();
@@ -33,7 +34,7 @@ namespace WebApplication1.Controllers
         public IActionResult Create(CreateItemViewModel data)
         {
             itemsServices.AddItem(data);    //to test
-            
+
             return View();
         }
     }
