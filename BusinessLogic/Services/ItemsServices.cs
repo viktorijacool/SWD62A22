@@ -61,20 +61,24 @@ namespace BusinessLogic.Services
 
         //it is not recommended that you use the Domain Models as a return type
         //in other words, do not use the classes tha model the database to transfer data into the presentation layer
-        //public IQueryable<ItemViewModel> GetItems()
-        //{
-        //    var list = from i in ir.GetItems()
-        //               select new CreateItemViewModel()
-        //               {
-        //                   Id = i.Id;
-        //                    Category = i.Category.Title;
-                                //...
+        public IQueryable<ItemViewModel> GetItems()
+        {
+            var list = from i in ir.GetItems()
+                       select new ItemViewModel()
+                       {
+                           Id = i.Id,
+                           Category = i.Category.Title,
+                           Description = i.Description,
+                           Name = i.Name,
+                           PhotoPath = i.PhotoPath,
+                           Price = i.Price,
+                           Stock = i.Stock
 
-        //               }
-            //return list;
-        //}
+                       };
+            return list;
+        }
 
-    }
+}
 
     
 }

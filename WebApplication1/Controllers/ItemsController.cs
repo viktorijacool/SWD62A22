@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
             try
             {
                 itemsServices.AddItem(data);    //to test
-                //dynamic object - it builds the declard properties on-the-fly i.e. the moment you declare the property
+                //dynamic object - it builds the declared properties on-the-fly i.e. the moment you declare the property
                 //"Message" - it builds in realtime in memory
                 ViewBag.Message = "Item successfully inserted in database";
             }
