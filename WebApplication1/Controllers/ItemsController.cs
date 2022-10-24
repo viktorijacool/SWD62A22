@@ -23,7 +23,7 @@ namespace WebApplication1.Controllers
 
 
         //a method to open the page, then the user starts typing
-        [HttpPost]
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -32,9 +32,19 @@ namespace WebApplication1.Controllers
         //a method to handle the submission of the form 
         [HttpPost]
         public IActionResult Create(CreateItemViewModel data)
-        {
-            itemsServices.AddItem(data);    //to test
-
+        {   //.....
+            try
+            {
+                itemsServices.AddItem(data);    //to test
+                //dynamic object - it builds the declard properties on-the-fly i.e. the moment you declare the property
+                //"Message" - it builds in realtime in memory
+                ViewBag.Message = "Item successfully inserted in database";
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Error = "Item wasn't inserted successfully. Please check your inputs";
+            }
+            
             return View();
         }
     }

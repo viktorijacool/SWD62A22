@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ViewModels;
 using DataAccess.Repositories;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,21 @@ namespace BusinessLogic.Services
         {
 
         }
+
+        //it is not recommended that you use the Domain Models as a return type
+        //in other words, do not use the classes tha model the database to transfer data into the presentation layer
+        //public IQueryable<ItemViewModel> GetItems()
+        //{
+        //    var list = from i in ir.GetItems()
+        //               select new CreateItemViewModel()
+        //               {
+        //                   Id = i.Id;
+        //                    Category = i.Category.Title;
+                                //...
+
+        //               }
+            //return list;
+        //}
 
     }
 
