@@ -47,5 +47,18 @@ namespace WebApplication1.Controllers
             
             return View();
         }
+
+        public IActionResult List()
+        {
+            var list = itemsServices.GetItems();
+            return View(list);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var myItem = itemsServices.GetItem(id);
+            return View(myItem);
+        }
+
     }
 }
