@@ -1,6 +1,7 @@
 using BusinessLogic.Services;
 using DataAccess.Context;
 using DataAccess.Repositories;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -66,6 +68,17 @@ namespace WebApplication1
 
             services.AddScoped<ItemsServices>();
             services.AddScoped<ItemsRepository>();
+
+            //We are instructing the crl so that when it comes across ICategoriesRepository (in the constructor), it should initialize the class daclared after the comma
+            
+            FileInfo fi = new FileInfo(@"D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\Data\categories.txt");
+            //reads categories from a file
+            //services.AddScoped<ICategoriesRepository, CategoriesFileRepository>(x => new CategoriesFileRepository(fi));
+            
+            //reads categories from a db
+            services.AddScoped<ICategoriesRepository, CategoriesFileRepository>();
+
+            services.AddScoped<CategoriesServices>();
 
         }
 
