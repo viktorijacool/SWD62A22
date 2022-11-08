@@ -18,11 +18,13 @@ namespace WebApplication1.Controllers
     {
         private ItemsServices itemsServices;
         private IWebHostEnvironment host;
+        private CategoriesServices categoriesServices;
 
-        public ItemsController(ItemsServices _itemsServices, IWebHostEnvironment _host)
+        public ItemsController(ItemsServices _itemsServices, IWebHostEnvironment _host, CategoriesServices _categoriesServices)
         {
             itemsServices = _itemsServices;
             host = _host;
+            categoriesServices = _categoriesServices;
         }
 
 
@@ -31,7 +33,11 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            var categories = categoriesServices.GetCategories();
+            CreateItemViewModel myModel = new CreateItemViewModel();
+            myModel.Categories = categories.ToList();
+
+            return View(myModel);
         }
 
         //a method to handle the submission of the form 
@@ -74,8 +80,11 @@ namespace WebApplication1.Controllers
             {
                 ViewBag.Error = "Item wasn't inserted successfully. Please check your inputs";
             }
-            
-            return View();
+
+            var categories = categoriesServices.GetCategories();
+            data.Categories = categories.ToList();
+
+            return View(data);
         }
 
         public IActionResult List()

@@ -12,7 +12,7 @@ namespace DataAccess.Repositories
     {
         private ShoppingCartContext context { get; set; }
 
-        private CategoriesRepository(ShoppingCartContext _context)
+        public CategoriesRepository(ShoppingCartContext _context)
         {
             context = _context;
         }

@@ -74,9 +74,9 @@ namespace WebApplication1
             FileInfo fi = new FileInfo(@"D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\Data\categories.txt");
             //reads categories from a file
             //services.AddScoped<ICategoriesRepository, CategoriesFileRepository>(x => new CategoriesFileRepository(fi));
-            
+
             //reads categories from a db
-            services.AddScoped<ICategoriesRepository, CategoriesFileRepository>();
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 
             services.AddScoped<CategoriesServices>();
 

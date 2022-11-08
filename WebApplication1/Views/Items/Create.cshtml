@@ -6,8 +6,8 @@
 
 <h1>Create</h1>
 
-<h4>CreateItemViewModel</h4>
-<hr />
+@*<h4>CreateItemViewModel</h4>
+*@<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
@@ -18,9 +18,15 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            Select a Category:
+                <select name="CategoryId" class="form-control">
+                    @foreach(var c in Model.Categories)
+                    {
+                        <option value="@c.Id">@c.Title</option>
+                    }
+                </select>
+@*                <input asp-for="CategoryId" class="form-control" />
+*@                <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
