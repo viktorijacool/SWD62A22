@@ -9,6 +9,35 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+
+<form method="post" action="/Items/Search" class="row g-3">
+    <div class="col-auto">
+        Search:&nbsp;
+    </div>
+    <div class="col-md-6">
+        <input type="text" class="form-control" name="keyword" />&nbsp;
+    </div>
+    <div class="col-auto">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    </div>
+</form>
+
+@*<form class="row g-3">
+    <div class="col-auto">
+        <label for="staticEmail2" class="visually-hidden">Email</label>
+        <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+    </div>
+    <div class="col-auto">
+        <label for="inputPassword2" class="visually-hidden">Password</label>
+        <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+    </div>
+</form>*@
+
+
 <table class="table">
     <thead>
         <tr>
@@ -50,8 +79,8 @@
 
 @*                <a href="/Items/Details/@item.Id">More Info</a>
 *@
-@*                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-*@            </td>
+                  @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+           </td>
         </tr>
 }
     </tbody>

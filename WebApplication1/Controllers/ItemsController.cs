@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace WebApplication1.Controllers
@@ -97,6 +98,39 @@ namespace WebApplication1.Controllers
         {
             var myItem = itemsServices.GetItem(id);
             return View(myItem);
+        }
+
+        [HttpPost]
+        public IActionResult Search(string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return RedirectToAction("List");
+            }
+            else
+            {
+                var list = itemsServices.Search(keyword);
+                return View("List", list);
+            }
+            
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                itemsServices.DeleteItem(id);
+
+                //ViewBag will not work here because Viewbag is lost when there is a redirection
+                //TempData survives redirections (up to 1 redirection)
+                TempData["message"] = "Item has been deleted";
+            }
+            catch(Exception ex)
+            {
+                TempData["error"] = "Item has not been deleted";
+            }
+            return RedirectToAction("List");
         }
 
     }
