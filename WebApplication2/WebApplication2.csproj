@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-WebApplication2-097361B4-0204-4C98-B473-8E159631BABB</UserSecretsId>
+    <UserSecretsId>aspnet-WebApplication2-CBF17E44-F862-4569-B37F-E67E861957C8</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
 
