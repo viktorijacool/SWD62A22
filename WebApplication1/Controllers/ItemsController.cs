@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Services;
 using BusinessLogic.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Controllers
 {
-    
+
     //are going to handle the incoming requests and outgoing responses
-    
+
     public class ItemsController : Controller
     {
         private ItemsServices itemsServices;
@@ -32,6 +33,7 @@ namespace WebApplication1.Controllers
 
         //a method to open the page, then the user starts typing
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             var categories = categoriesServices.GetCategories();
@@ -43,41 +45,54 @@ namespace WebApplication1.Controllers
 
         //a method to handle the submission of the form 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(CreateItemViewModel data, IFormFile file)
         {   //.....
             try
             {
-                if (file != null)
+                if (ModelState.IsValid)     //a built-in manager
                 {
-                    //1. change filename
-                    string uniqueFilename = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
+                    //Adding Validation
 
-                    //2. the absolute path of the folder where the image is going...
-                    //e.g. D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\wwwroot\Images\
+                    //check if the category exists in the db
+                    //if not
+                    //ModelState.AddModelError("CategoryId", "Category is not valid");
+                    //return View(data);
 
-                    string absolutePath = host.WebRootPath;
+                    string username = User.Identity.Name;   //gives you the email/username of the currently logged in user
 
-                    //3. saving file
-                    using (System.IO.FileStream fsOut = new System.IO.FileStream(absolutePath + "\\Images\\" + uniqueFilename, System.IO.FileMode.CreateNew))
+                    if (file != null)
                     {
-                        file.CopyTo(fsOut);
+                        //1. change filename
+                        string uniqueFilename = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
+
+                        //2. the absolute path of the folder where the image is going...
+                        //e.g. D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\wwwroot\Images\
+
+                        string absolutePath = host.WebRootPath;
+
+                        //3. saving file
+                        using (System.IO.FileStream fsOut = new System.IO.FileStream(absolutePath + "\\Images\\" + uniqueFilename, System.IO.FileMode.CreateNew))
+                        {
+                            file.CopyTo(fsOut);
+                        }
+
+                        //4. save the path to the image in the database
+                        //http://localhost:xxxx/Images/filename.jpg
+                        data.PhotoPath = "/Images/" + uniqueFilename;
                     }
 
-                    //4. save the path to the image in the database
-                    //http://localhost:xxxx/Images/filename.jpg
-                    data.PhotoPath = "/Images/" + uniqueFilename;
+
+
+                    //data.Author = username;
+
+                    itemsServices.AddItem(data);    //to test
+                                                    //dynamic object - it builds the declared properties on-the-fly i.e. the moment you declare the property
+                                                    //"Message" - it builds in realtime in memory
+                    ViewBag.Message = "Item successfully inserted in database";
                 }
-
-
-
-
-
-                itemsServices.AddItem(data);    //to test
-                //dynamic object - it builds the declared properties on-the-fly i.e. the moment you declare the property
-                //"Message" - it builds in realtime in memory
-                ViewBag.Message = "Item successfully inserted in database";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Error = "Item wasn't inserted successfully. Please check your inputs";
             }
@@ -116,6 +131,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             try
