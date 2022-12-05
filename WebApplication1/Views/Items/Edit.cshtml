@@ -1,16 +1,15 @@
 ﻿@model BusinessLogic.ViewModels.CreateItemViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
-@*<h4>CreateItemViewModel</h4>
-*@<hr />
+<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -20,9 +19,9 @@
             <div class="form-group">
             Select a Category:
                 <select name="CategoryId" class="form-control">
-                    @foreach(var c in Model.Categories)
+                    @foreach (var c in Model.Categories)
                     {
-                        if (Model.CategoryId == c.Id)
+                        if(Model.CategoryId == c.Id)
                         {
                             <option value="@c.Id" selected>@c.Title</option>
                         }
@@ -32,8 +31,7 @@
                         }
                     }
                 </select>
-@*                <input asp-for="CategoryId" class="form-control" />
-*@                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
@@ -46,8 +44,12 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhotoPath" class="control-label"></label>
-            Photo:
+                @if (String.IsNullOrEmpty(Model.PhotoPath) == false)
+                {
+                    <img src="@Model.PhotoPath" style="width: 100px; height: 100px;" />
+                }
+
+            Change Photo:
                 <input type="file" name="file" class="form-control" />
                 <span asp-validation-for="PhotoPath" class="text-danger"></span>
             </div>
@@ -57,7 +59,7 @@
                 <span asp-validation-for="Stock" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

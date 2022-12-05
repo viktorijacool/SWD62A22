@@ -2,6 +2,7 @@
 using DataAccess.Repositories;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -130,6 +131,26 @@ namespace BusinessLogic.Services
         public IQueryable<ItemViewModel> Search(string keyword, double minPrice, double maxPrice)
         {
             return Search(keyword).Where(x => x.Price >= minPrice && x.Price <= maxPrice);
+        }
+
+
+        //we use CreateItemViewModel to not to create a new ViewModel
+        public void EditItem(int id, CreateItemViewModel updatedItem)
+        {
+            ir.EditItem(
+
+                new Domain.Models.Item()
+
+                {
+                    Id = id,
+                    CategoryId = updatedItem.CategoryId,
+                    Description = updatedItem.Description,
+                    Name = updatedItem.Name,
+                    PhotoPath = updatedItem.PhotoPath,
+                    Price = updatedItem.Price,
+                    Stock = updatedItem.Stock
+                }
+            );
         }
 
 

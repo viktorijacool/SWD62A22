@@ -46,5 +46,24 @@ namespace DataAccess.Repositories
         {
             return context.Items.SingleOrDefault(x => x.Id == id);
         }
+
+        public void EditItem(Item updatedItem)
+        {
+            //1. get the original item from the database 
+
+            var originalItem = GetItem(updatedItem.Id);     //the Id should never be allowed to be changed
+
+
+            //2. update the details which were supposed to be updated one by one
+
+            originalItem.Name = updatedItem.Name;
+            originalItem.PhotoPath = updatedItem.PhotoPath;
+            originalItem.Price = updatedItem.Price;
+            originalItem.Stock = updatedItem.Stock;
+            originalItem.Description = updatedItem.Description;
+            originalItem.CategoryId = updatedItem.CategoryId;       //we change the foreign key, NOT the navigational property
+
+            context.SaveChanges();
+        }
     }
 }
