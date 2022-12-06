@@ -71,13 +71,28 @@ namespace WebApplication1
             services.AddScoped<ItemsRepository>();
 
             //We are instructing the crl so that when it comes across ICategoriesRepository (in the constructor), it should initialize the class daclared after the comma
-            
+
+            string approach = Configuration.GetSection("approach").Value;
+
+            if(approach == "db")
+            {
+                //reads categories from a db
+                services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            }
+            else
+            {
+                //reads categories from a file
+                // ???
+                //FileInfo fi = new FileInfo(@"D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\Data\categories.txt");
+
+                //services.AddScoped<ICategoriesRepository, CategoriesFileRepository>(x => new CategoriesFileRepository(fi));
+            }
+
+
             FileInfo fi = new FileInfo(@"D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\Data\categories.txt");
             //reads categories from a file
             //services.AddScoped<ICategoriesRepository, CategoriesFileRepository>(x => new CategoriesFileRepository(fi));
 
-            //reads categories from a db
-            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 
             services.AddScoped<CategoriesServices>();
 
