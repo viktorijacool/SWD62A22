@@ -82,17 +82,10 @@ namespace WebApplication1
             else
             {
                 //reads categories from a file
-                // ???
-                //FileInfo fi = new FileInfo(@"D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\Data\categories.txt");
+                FileInfo fi = new FileInfo(@"D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\Data\categories.txt");
 
-                //services.AddScoped<ICategoriesRepository, CategoriesFileRepository>(x => new CategoriesFileRepository(fi));
+                services.AddScoped<ICategoriesRepository, CategoriesFileRepository>(x => new CategoriesFileRepository(fi));
             }
-
-
-            FileInfo fi = new FileInfo(@"D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\Data\categories.txt");
-            //reads categories from a file
-            //services.AddScoped<ICategoriesRepository, CategoriesFileRepository>(x => new CategoriesFileRepository(fi));
-
 
             services.AddScoped<CategoriesServices>();
 
@@ -108,7 +101,10 @@ namespace WebApplication1
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+
+                //app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
