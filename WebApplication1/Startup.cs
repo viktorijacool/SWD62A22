@@ -89,6 +89,11 @@ namespace WebApplication1
 
             services.AddScoped<CategoriesServices>();
 
+            //Logs
+            services.AddScoped<ILogRepository, LogInTextFileRepository>(provider => new LogInTextFileRepository(
+            @"D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\Data\logs.json"));
+
+            services.AddScoped<LogServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

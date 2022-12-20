@@ -22,12 +22,15 @@ namespace WebApplication1.Controllers
         private ItemsServices itemsServices;
         private IWebHostEnvironment host;
         private CategoriesServices categoriesServices;
+        private LogServices logServices;
 
-        public ItemsController(ItemsServices _itemsServices, IWebHostEnvironment _host, CategoriesServices _categoriesServices)
+        public ItemsController(ItemsServices _itemsServices, IWebHostEnvironment _host, CategoriesServices _categoriesServices,
+            LogServices _logServices)
         {
             itemsServices = _itemsServices;
             host = _host;
             categoriesServices = _categoriesServices;
+            logServices = _logServices;
         }
 
 
@@ -51,8 +54,13 @@ namespace WebApplication1.Controllers
         {   //.....
             try
             {
+                logServices.LogMessage($"User trying to add a new item with name {data.Name}", "info");
+                
                 if (ModelState.IsValid)     //a built-in manager
                 {
+                    logServices.LogMessage($"Validation for {data.Name} were found to be ok", "info");
+
+
                     //Adding Validation
 
                     //check if the category exists in the db
@@ -66,20 +74,24 @@ namespace WebApplication1.Controllers
                     {
                         //1. change filename
                         string uniqueFilename = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
+                        logServices.LogMessage($"Unique filename fore {data.Name} is {uniqueFilename}", "info");
 
                         //2. the absolute path of the folder where the image is going...
                         //e.g. D:\MCAST\Enterprise Proramming\EnterpriseProgrammingSolution\WebApplication1\wwwroot\Images\
 
                         string absolutePath = host.WebRootPath;
+                        logServices.LogMessage($"Absolute path were the image of {data.Name} is going to be saved: {absolutePath}", "info");
 
                         //3. saving file
                         using (System.IO.FileStream fsOut = new System.IO.FileStream(absolutePath + "\\Images\\" + uniqueFilename, System.IO.FileMode.CreateNew))
                         {
+                            logServices.LogMessage($"Writing the image of {data.Name} / {uniqueFilename}", "info");
                             file.CopyTo(fsOut);
                         }
 
                         //4. save the path to the image in the database
                         //http://localhost:xxxx/Images/filename.jpg
+                        logServices.LogMessage($"Image written successfully of {data.Name} / {uniqueFilename}", "info");
                         data.PhotoPath = "/Images/" + uniqueFilename;
                     }
 
@@ -90,11 +102,18 @@ namespace WebApplication1.Controllers
                     itemsServices.AddItem(data);    //to test
                                                     //dynamic object - it builds the declared properties on-the-fly i.e. the moment you declare the property
                                                     //"Message" - it builds in realtime in memory
+                    logServices.LogMessage($"Saved in the db successfully ({data.Name})", "info");
+
                     ViewBag.Message = "Item successfully inserted in database";
+                }
+                else
+                {
+                    logServices.LogMessage($"Validation for {data.Name} were not found to be ok", "warning");
                 }
             }
             catch (Exception ex)
             {
+                logServices.LogMessage($"Not saved in the db ({data.Name})", "error");
                 ViewBag.Error = "Item wasn't inserted successfully. Please check your inputs";
             }
 

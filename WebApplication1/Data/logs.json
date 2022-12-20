@@ -1,0 +1,14 @@
+{"Date":"20/12/2022 13:18:43","Message":"User trying to add a new item with name 1234","Type":"info"}
+{"Date":"20/12/2022 13:18:43","Message":"Validation for 1234 were found to be ok","Type":"info"}
+{"Date":"20/12/2022 13:18:43","Message":"Unique filename fore 1234 is a8e15379-029e-4c2e-b186-4410c2e2d855.jpg","Type":"info"}
+{"Date":"20/12/2022 13:18:43","Message":"Absolute path were the image of 1234 is going to be saved: D:\\MCAST\\Enterprise Proramming\\EnterpriseProgrammingSolution\\WebApplication1\\wwwroot","Type":"info"}
+{"Date":"20/12/2022 13:18:43","Message":"Writing the image of 1234 / a8e15379-029e-4c2e-b186-4410c2e2d855.jpg","Type":"info"}
+{"Date":"20/12/2022 13:18:43","Message":"Image written successfully of 1234 / a8e15379-029e-4c2e-b186-4410c2e2d855.jpg","Type":"info"}
+{"Date":"20/12/2022 13:18:44","Message":"Saved in the db successfully (1234)","Type":"info"}
+{"Date":"20/12/2022 13:19:39","Message":"User trying to add a new item with name 1234","Type":"info"}
+{"Date":"20/12/2022 13:19:39","Message":"Validation for 1234 were found to be ok","Type":"info"}
+{"Date":"20/12/2022 13:19:39","Message":"Unique filename fore 1234 is 504db8db-eb8d-470b-b280-50c00e842b1f.jpg","Type":"info"}
+{"Date":"20/12/2022 13:19:39","Message":"Absolute path were the image of 1234 is going to be saved: D:\\MCAST\\Enterprise Proramming\\EnterpriseProgrammingSolution\\WebApplication1\\wwwroot","Type":"info"}
+{"Date":"20/12/2022 13:19:39","Message":"Writing the image of 1234 / 504db8db-eb8d-470b-b280-50c00e842b1f.jpg","Type":"info"}
+{"Date":"20/12/2022 13:19:39","Message":"Image written successfully of 1234 / 504db8db-eb8d-470b-b280-50c00e842b1f.jpg","Type":"info"}
+{"Date":"20/12/2022 13:19:39","Message":"The image for 1234 were not saved successfully","Type":"error"}
